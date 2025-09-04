@@ -38,14 +38,14 @@ void mergeSort(vector<int>& arr, int st, int end) {
 }
 
 int main() {
-    vector<int> arr = {12, 11, 13, 5, 6, 7}; // Example input
+    vector<int> arr = {12, 11, 13, 5, 6, 7};
     cout << "Given array is: ";
-    for (int val : arr) {
+    for (int val:arr) {
         cout << val << " ";
     }
-    cout << endl;
+    cout<<endl;
 
-    mergeSort(arr, 0, arr.size() - 1);
+    mergeSort(arr,0,arr.size() - 1);
 
     cout << "Sorted array is: ";
     for (int val : arr) {
