@@ -1,0 +1,60 @@
+#include<iostream>
+using namespace std;
+class knapsack{
+    public:
+    int profit;
+    int weight;
+float ratio;
+};
+int main()
+{
+    knapsack k[3];
+    int capacity = 50;
+
+    cout<<"Enter the profit:";
+    for(int i=0;i<3;i++)
+    {
+        cin>>k[i].profit;
+    }
+cout<<"Enter the weight:";
+
+    for(int i=0;i<3;i++)
+    {
+        cin>>k[i].weight;
+    }
+
+    for(int i=0;i<3;i++)
+    {
+        k[i].ratio=(float)k[i].profit/k[i].weight;
+    }
+    for(int i=0;i<3-1;i++)
+    {
+        for(int j=i+1;j<3;j++)
+        {
+            if(k[i].ratio < k[j].ratio)
+            {
+            knapsack temp = k[i];
+                k[i] = k[j];
+                k[j] = temp;
+            }
+        }
+    }
+    float total_profit=0;
+    for(int i=0;i<3;i++)
+    {
+        if(capacity>=k[i].weight)
+        {
+            total_profit+=k[i].profit;
+             capacity-=k[i].weight;
+        }
+        else{
+            total_profit+=k[i].profit*((float)capacity/k[i].weight);
+            break;
+        }
+    }
+    cout<<"Maxmimum profit:";
+    cout<<total_profit;
+    return 0;
+    
+    
+}
