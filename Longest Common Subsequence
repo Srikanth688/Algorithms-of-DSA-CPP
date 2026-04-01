@@ -1,46 +1,66 @@
-#include <iostream>
-#include<cstring>
+#include<iostream>
 using namespace std;
-int lcs(char x[],char y[])
+int main()
 {
-    int m=strlen(x);
-    int n=strlen(y);
+    string X = "ABCBDAB";
+    string Y = "BDCAB";
+    int m = X.length();
+    int n = Y.length();
     int dp[100][100];
-    
+    char dir[100][100];
     for(int i=0;i<=m;i++)
     {
-        dp[i][0]=0;
-    }
-    for(int j=0;j<=n;j++)
-    {
-        dp[0][j]=0;
+        for(int j=0;j<=n;j++)
+        {
+            dp[i][j]=0;
+            dir[i][j]='0';
+        }
     }
     for(int i=1;i<=m;i++)
     {
         for(int j=1;j<=n;j++)
         {
-            if(x[i-1]==y[j-1])
+            if(X[i-1]==Y[j-1])
             {
-                dp[i][j]=dp[i-1][j-1]+1;
+                dp[i][j]=1+dp[i-1][j-1];
+                dir[i][j]='D';
             }
-            else if(dp[i-1][j]>dp[i][j-1])
+            else if(dp[i-1][j]>=dp[i][j-1])
             {
                 dp[i][j]=dp[i-1][j];
+                dir[i][j]='U';
+                
             }
             else{
                 dp[i][j]=dp[i][j-1];
+                dir[i][j]='L';
+            }
+                
+            }
+            
+        }
+        cout<<"Length:"<<dp[m][n]<<endl;
+        int i=m;
+        int j=n;
+        string lcs="";
+        while(i>0&&j>0)
+        {
+            if(dir[i][j]=='D')
+            {
+                lcs=X[i-1]+lcs;
+                i--;
+                j--;
+            }
+            else if(dir[i][j]=='U')
+            {
+                i--;
+            }
+            else{
+                j--;
             }
         }
+        cout<<"LCS:"<<lcs<<endl;
+        return 0;
+        
+        
     }
-    return dp[m][n];
-    
-    
-}
-
-int main() {
-char x[]="stone";
-char y[]="longest";
-cout<<"Longest common subsequence:"<<lcs(x,y);
-
-    return 0;
-}
