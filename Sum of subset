@@ -1,0 +1,33 @@
+#include<iostream>
+using namespace std;
+void backtrack(int arr[],int n,int target,int index,int subset[],int size,int sum)
+{
+    if(sum==target)
+    {
+        cout<<"{";
+        for(int i=0;i<size;i++)
+        {
+            cout<<subset[i]<<" ";
+        }
+        cout<<"}";
+        return;
+    }
+    if(sum>target||index==n)
+    {
+        return;
+    }
+    subset[size]=arr[index];
+    backtrack(arr,n,target,index+1,subset,size+1,sum+arr[index]);
+    backtrack(arr,n,target,index+1,subset,size,sum);
+    
+    
+}
+int main()
+{
+    int arr[]={2,3,4,6,8};
+    int n=5;
+    int target=10;
+    int subset[100];
+    backtrack(arr,n,target,0,subset,0,0);
+    return 0;
+}
